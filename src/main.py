@@ -35,8 +35,10 @@ class AbstractSprite:
     
     self.sprite = pg.Surface(dimensions)
     
+    self.sprite.set_colorkey((0, 0, 0))
     s = (index*dimensions[0])
     self.sprite.blit(sprite,(0,0), (s,0)+dimensions)
+    self.sprite = self.sprite.convert_alpha()
   
   def render(self, surface: pg.Surface, coordinate: tuple):
     surface.blit(self.sprite, coordinate)
@@ -90,7 +92,7 @@ class Theme:
   
 
 
-theme = Theme("Placeholder")
+theme = Theme("Chocolate")
 # gameSurface = pg.Surface(())
 
 clock = pg.time.Clock()
@@ -100,6 +102,8 @@ window.fill(theme.colorPalette["primary"])
 
 piecesize = theme.setup.data.get("pieces").get("dimensions")
 boardoffset = theme.setup.data.get("board").get("offset")
+boardsurface = pg.Surface((1200,1200))
+
 
 while running:
   clock.tick(12)
@@ -110,21 +114,24 @@ while running:
       running=False
       exit()
 
+
+  boardsurface.blit(theme.board, (0,0))
+  
   for x in range(0,8):
     for y in range(0,3):
       for piece in theme.lightSprites:
         if (x%2 ^ y%2):
-          piece.render(theme.board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
+          piece.render(boardsurface,(x*piecesize + boardoffset, y*piecesize + boardoffset))
 
   for x in range(0,8):
     for y in range(5,8):
       for piece in theme.darkSprites:
         if (x%2 ^ y%2):
-          piece.render(theme.board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
+          piece.render(boardsurface,(x*piecesize + boardoffset, y*piecesize + boardoffset))
   
-  
-  scaled_board=pg.transform.scale(theme.board, (WINDOW_SIZE[1],)*2)
+  scaled_board=pg.transform.scale(boardsurface, (WINDOW_SIZE[1],)*2)
   window.blit(scaled_board,(0,0))
   if (theme.thumbnail):
     window.blit(theme.thumbnail, (1160,0))
+  
   pg.display.update()
