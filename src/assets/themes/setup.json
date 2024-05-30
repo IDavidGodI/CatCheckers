@@ -1,0 +1,30 @@
+{
+  "pieces":{
+    "dimensions": 120,
+    "flow": [
+      {
+        "name": "checkers",
+        
+        "sprites": 13,
+        "static": [1,13],
+        "animated":{
+          "frames": [2,12],
+          "fps": 12
+        }
+        
+      },
+      {
+        "name": "death",
+        "sprites": 0
+      }
+      
+    ]
+  },
+  "board":{
+    "dimensions": 1200,
+    "offset": 120
+  },
+  "colorPalette":{
+    "primary": "#F4F0E5"
+  }
+}
