@@ -50,7 +50,7 @@ class Theme:
   darkSprites: list[AbstractSprite]
   board: pg.Surface
   colorPalette: dict
-
+  thumbnail: pg.Surface = None
   def __init__(self, themeName: str):
     self.paths = Paths(themeName)
     self.setup = SetUP(self.paths)
@@ -64,6 +64,9 @@ class Theme:
     self.colorPalette = self.setup.data["colorPalette"]
     
     self.board = pg.image.load(self.paths.getBoardPath())
+    thumbnailpath = self.paths.getThumbnailPath()
+    if (thumbnailpath):
+      self.thumbnail = pg.image.load(thumbnailpath)
     dimensions = (piecesSetUP.get("dimensions"),)*2
     for animacion in piecesSetUP["flow"]:
       name = animacion.get("name")
@@ -94,6 +97,7 @@ clock = pg.time.Clock()
 window.fill(theme.colorPalette["primary"])
 
 
+
 piecesize = theme.setup.data.get("pieces").get("dimensions")
 boardoffset = theme.setup.data.get("board").get("offset")
 
@@ -120,6 +124,7 @@ while running:
   
   
   scaled_board=pg.transform.scale(theme.board, (WINDOW_SIZE[1],)*2)
-
   window.blit(scaled_board,(0,0))
+  if (theme.thumbnail):
+    window.blit(theme.thumbnail, (1160,0))
   pg.display.update()
