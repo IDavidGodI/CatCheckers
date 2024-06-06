@@ -7,6 +7,7 @@ import os
 WINDOW_SIZE = (1280,720)
 window = pg.display.set_mode(WINDOW_SIZE)
 
+
 pg.display.set_icon(pg.image.load("./src/assets/icono.ico"))
 
 running = True
@@ -33,9 +34,9 @@ class AbstractSprite:
 
   def setSprite(self, sprite: pg.Surface, dimensions: tuple, index: int):
     
-    self.sprite = pg.Surface(dimensions)
+    self.sprite = pg.Surface(dimensions, pg.SRCALPHA)
     
-    self.sprite.set_colorkey((0, 0, 0))
+    # self.sprite.set_colorkey((0, 0, 0))
     s = (index*dimensions[0])
     self.sprite.blit(sprite,(0,0), (s,0)+dimensions)
     self.sprite = self.sprite.convert_alpha()
@@ -96,7 +97,6 @@ theme = Theme("Chocolate")
 # gameSurface = pg.Surface(())
 
 clock = pg.time.Clock()
-window.fill(theme.colorPalette["primary"])
 
 
 
@@ -106,13 +106,21 @@ boardsurface = pg.Surface((1200,1200))
 
 
 while running:
+  DISPLAY_SIZE = (pg.display.Info().current_w,pg.display.Info().current_h)
   clock.tick(12)
   events = pg.event.get()
+  window.fill(theme.colorPalette["primary"])
   
   for event in events:
     if (event.type == pg.QUIT): 
       running=False
       exit()
+    if event.type == pg.KEYDOWN:
+      if event.key == pg.K_F11:
+        if pg.display.is_fullscreen():
+          pg.display.set_mode(WINDOW_SIZE)
+        else:
+          pg.display.set_mode((0,0), pg.FULLSCREEN)
 
 
   boardsurface.blit(theme.board, (0,0))
@@ -129,7 +137,8 @@ while running:
         if (x%2 ^ y%2):
           piece.render(boardsurface,(x*piecesize + boardoffset, y*piecesize + boardoffset))
   
-  scaled_board=pg.transform.scale(boardsurface, (WINDOW_SIZE[1],)*2)
+  scaled_board=pg.transform.scale(boardsurface, (DISPLAY_SIZE[1],)*2)
+  
   window.blit(scaled_board,(0,0))
   if (theme.thumbnail):
     window.blit(theme.thumbnail, (1160,0))
