@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from models.BaseDataClass import ParseableDataClass
-from models.Theme import ColorScheme
-from models.Theme.ColorSchemesDict import ColorSchemes
+from models.theme import ColorScheme
+from models.theme.ColorSchemesDict import ColorSchemes
 
 
 @dataclass

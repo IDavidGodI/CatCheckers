@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from typing import Dict
 
 
-from models.Theme.ActionsDict import Actions
-from models.Theme.Sprites import Sprite
+from models.theme.ActionsDict import Actions
+from models.theme.Sprites import Sprite
 
 
 

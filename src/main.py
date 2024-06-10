@@ -1,52 +1,8 @@
 from paths import Paths
 import pygame as pg
 import json
-from models.Theme import *
+from models.theme import *
 
-
-
-json_data = {
-    "pieces": {
-        "spriteSpecs": {
-            "dimensions": 64,
-            "offset": 10
-        },
-        "actions": {
-            "Prueba1": {
-                "frames": 10,
-                "fps": 24
-            }
-        }
-    },
-    "board": {
-        "spriteSpecs": {
-            "dimensions": 128,
-            "offset": 5
-        }
-    },
-    "colorSettings": {
-        "defaultScheme": {
-            "bgColor": "#3498db",
-            "fontColor": "#ffffff"
-        },
-        "schemes":{
-          "primary": {
-              "bgColor": "#3498db",
-              "fontColor": "#ffffff"
-          },
-          "secondary": {
-              "bgColor": "#2ecc71",
-              "fontColor": "#ffffff"
-          }
-        }
-    }
-}
-
-
-
-
-print(Theme.from_dict(json_data))
-exit()
 WINDOW_SIZE = (1280,720)
 window = pg.display.set_mode(WINDOW_SIZE)
 
