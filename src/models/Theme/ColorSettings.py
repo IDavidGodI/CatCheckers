@@ -1,15 +1,10 @@
-from typing import Dict
 from dataclasses import dataclass
-
 from models.BaseDataClass import ParseableDataClass
-
-@dataclass
-class ColorSetting(ParseableDataClass):
-  bgColor: str
-  fontColor: str
+from models.Theme import ColorScheme
+from models.Theme.ColorSchemesDict import ColorSchemes
 
 
 @dataclass
 class ColorSettings(ParseableDataClass):
-  defaultScheme: ColorSetting
-  schemes: Dict[str,ColorSetting]
+  defaultScheme: ColorScheme
+  schemes: ColorSchemes

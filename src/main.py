@@ -2,7 +2,7 @@ from paths import Paths
 import pygame as pg
 import json
 import os
-from models.Theme import Pieces, Theme
+from models.Theme import Theme
 
 
 
@@ -13,7 +13,7 @@ json_data = {
             "offset": 10
         },
         "actions": {
-            "test": {
+            "Prueba1": {
                 "frames": 10,
                 "fps": 24
             }

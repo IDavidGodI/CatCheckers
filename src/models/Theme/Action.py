@@ -10,8 +10,3 @@ from models.BaseDataClass import ParseableDataClass
 class Action(ParseableDataClass):
   frames: int
   fps: int | None
-
-
-class Actions(TypedDict):
-  Prueba1: Action
-  Prueba2: Action
