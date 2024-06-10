@@ -33,7 +33,7 @@
   "colorSettings": {
     "defaultScheme": {
       "bgColor": "#000000",
-      "fontColor": "#ffffff"
+      "fgColor": "#ffffff"
     },
     "schemes": {}
   }

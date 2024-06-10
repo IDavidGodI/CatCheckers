@@ -3,7 +3,7 @@
     "schemes": {},
     "defaultScheme": {
       "bgColor": "#10330c",
-      "fontColor": "#ffffff"
+      "fgColor": "#ffffff"
     }
   }
 }
