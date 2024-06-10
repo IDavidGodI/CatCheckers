@@ -1,30 +1,40 @@
 {
-  "pieces":{
-    "dimensions": 120,
-    "flow": [
-      {
-        "name": "checkers",
-        
-        "sprites": 13,
-        "static": [1,13],
-        "animated":{
-          "frames": [2,12],
-          "fps": 12
-        }
-        
+  "pieces": {
+    "spriteSpecs": {
+      "dimensions": 120
+    },
+    "actions": {
+      "checkers": {
+        "frames": 13,
+        "fps": 12
       },
-      {
-        "name": "death",
-        "sprites": 0
+      "idle": {
+        "frames": 1
+      },
+      "checkidle": {
+        "frames": 1
+      },
+      "death": {
+        "frames": 9,
+        "fps": 12
+      },
+      "checkdeath": {
+        "frames": 9,
+        "fps": 12
       }
-      
-    ]
+    }
   },
-  "board":{
-    "dimensions": 1200,
-    "offset": 120
+  "board": {
+    "spriteSpecs": {
+      "dimensions": 960,
+      "offset": 120
+    }
   },
-  "colorPalette":{
-    "primary": "#F4F0E5"
+  "colorSettings": {
+    "defaultScheme": {
+      "bgColor": "#000000",
+      "fontColor": "#ffffff"
+    },
+    "schemes": {}
   }
 }

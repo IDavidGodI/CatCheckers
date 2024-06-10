@@ -1,6 +1,9 @@
 {
-  
-  "colorPalette":{
-    "primary": "#4F4235"
+  "colorSettings": {
+    "schemes": {},
+    "defaultScheme": {
+      "bgColor": "#4f4235",
+      "fontColor": "#fdf5d6"
+    }
   }
 }
