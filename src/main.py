@@ -1,11 +1,55 @@
 from paths import Paths
 import pygame as pg
 import json
-import os
+from models.Theme import *
 
 
+
+json_data = {
+    "pieces": {
+        "spriteSpecs": {
+            "dimensions": 64,
+            "offset": 10
+        },
+        "actions": {
+            "Prueba1": {
+                "frames": 10,
+                "fps": 24
+            }
+        }
+    },
+    "board": {
+        "spriteSpecs": {
+            "dimensions": 128,
+            "offset": 5
+        }
+    },
+    "colorSettings": {
+        "defaultScheme": {
+            "bgColor": "#3498db",
+            "fontColor": "#ffffff"
+        },
+        "schemes":{
+          "primary": {
+              "bgColor": "#3498db",
+              "fontColor": "#ffffff"
+          },
+          "secondary": {
+              "bgColor": "#2ecc71",
+              "fontColor": "#ffffff"
+          }
+        }
+    }
+}
+
+
+
+
+print(Theme.from_dict(json_data))
+exit()
 WINDOW_SIZE = (1280,720)
 window = pg.display.set_mode(WINDOW_SIZE)
+
 
 pg.display.set_icon(pg.image.load("./src/assets/icono.ico"))
 
@@ -33,10 +77,12 @@ class AbstractSprite:
 
   def setSprite(self, sprite: pg.Surface, dimensions: tuple, index: int):
     
-    self.sprite = pg.Surface(dimensions)
+    self.sprite = pg.Surface(dimensions, pg.SRCALPHA)
     
+    # self.sprite.set_colorkey((0, 0, 0))
     s = (index*dimensions[0])
     self.sprite.blit(sprite,(0,0), (s,0)+dimensions)
+    self.sprite = self.sprite.convert_alpha()
   
   def render(self, surface: pg.Surface, coordinate: tuple):
     surface.blit(self.sprite, coordinate)
@@ -44,7 +90,7 @@ class AbstractSprite:
 
 
 
-class Theme:
+class ThemeL:
   setup: SetUP
   lightSprites: list[AbstractSprite]
   darkSprites: list[AbstractSprite]
@@ -90,41 +136,51 @@ class Theme:
   
 
 
-theme = Theme("Placeholder")
+theme = ThemeL("Chocolate")
 # gameSurface = pg.Surface(())
 
 clock = pg.time.Clock()
-window.fill(theme.colorPalette["primary"])
 
 
 
 piecesize = theme.setup.data.get("pieces").get("dimensions")
 boardoffset = theme.setup.data.get("board").get("offset")
 
+board = theme.board
 while running:
+  DISPLAY_SIZE = (pg.display.Info().current_w,pg.display.Info().current_h)
   clock.tick(12)
   events = pg.event.get()
+  window.fill(theme.colorPalette["primary"])
   
   for event in events:
     if (event.type == pg.QUIT): 
       running=False
       exit()
+    if event.type == pg.KEYDOWN:
+      if event.key == pg.K_F11:
+        if pg.display.is_fullscreen():
+          pg.display.set_mode(WINDOW_SIZE)
+        else:
+          pg.display.set_mode((0,0), pg.FULLSCREEN)
 
+  
   for x in range(0,8):
     for y in range(0,3):
       for piece in theme.lightSprites:
         if (x%2 ^ y%2):
-          piece.render(theme.board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
+          piece.render(board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
 
   for x in range(0,8):
     for y in range(5,8):
       for piece in theme.darkSprites:
         if (x%2 ^ y%2):
-          piece.render(theme.board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
+          piece.render(board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
   
+  scaled_board=pg.transform.scale(board, (DISPLAY_SIZE[1],)*2)
   
-  scaled_board=pg.transform.scale(theme.board, (WINDOW_SIZE[1],)*2)
   window.blit(scaled_board,(0,0))
   if (theme.thumbnail):
     window.blit(theme.thumbnail, (1160,0))
+  
   pg.display.update()
