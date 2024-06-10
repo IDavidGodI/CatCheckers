@@ -2,7 +2,7 @@ from paths import Paths
 import pygame as pg
 import json
 import os
-from models.Theme import Theme
+from models.Theme import Pieces, Theme
 
 
 
@@ -42,6 +42,8 @@ json_data = {
         }
     }
 }
+
+
 
 
 print(Theme.from_dict(json_data))
