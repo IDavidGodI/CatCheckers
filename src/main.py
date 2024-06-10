@@ -1,8 +1,7 @@
 from paths import Paths
 import pygame as pg
 import json
-import os
-from models.Theme import Theme
+from models.Theme import *
 
 
 
