@@ -2,8 +2,50 @@ from paths import Paths
 import pygame as pg
 import json
 import os
+from models.Theme import Theme
 
 
+
+json_data = {
+    "pieces": {
+        "spriteSpecs": {
+            "dimensions": 64,
+            "offset": 10
+        },
+        "actions": {
+            "test": {
+                "frames": 10,
+                "fps": 24
+            }
+        }
+    },
+    "board": {
+        "spriteSpecs": {
+            "dimensions": 128,
+            "offset": 5
+        }
+    },
+    "colorSettings": {
+        "defaultScheme": {
+            "bgColor": "#3498db",
+            "fontColor": "#ffffff"
+        },
+        "schemes":{
+          "primary": {
+              "bgColor": "#3498db",
+              "fontColor": "#ffffff"
+          },
+          "secondary": {
+              "bgColor": "#2ecc71",
+              "fontColor": "#ffffff"
+          }
+        }
+    }
+}
+
+
+print(Theme.from_dict(json_data))
+exit()
 WINDOW_SIZE = (1280,720)
 window = pg.display.set_mode(WINDOW_SIZE)
 
@@ -47,7 +89,7 @@ class AbstractSprite:
 
 
 
-class Theme:
+class ThemeL:
   setup: SetUP
   lightSprites: list[AbstractSprite]
   darkSprites: list[AbstractSprite]
@@ -93,7 +135,7 @@ class Theme:
   
 
 
-theme = Theme("Chocolate")
+theme = ThemeL("Chocolate")
 # gameSurface = pg.Surface(())
 
 clock = pg.time.Clock()
@@ -102,9 +144,8 @@ clock = pg.time.Clock()
 
 piecesize = theme.setup.data.get("pieces").get("dimensions")
 boardoffset = theme.setup.data.get("board").get("offset")
-boardsurface = pg.Surface((1200,1200))
 
-
+board = theme.board
 while running:
   DISPLAY_SIZE = (pg.display.Info().current_w,pg.display.Info().current_h)
   clock.tick(12)
@@ -122,22 +163,20 @@ while running:
         else:
           pg.display.set_mode((0,0), pg.FULLSCREEN)
 
-
-  boardsurface.blit(theme.board, (0,0))
   
   for x in range(0,8):
     for y in range(0,3):
       for piece in theme.lightSprites:
         if (x%2 ^ y%2):
-          piece.render(boardsurface,(x*piecesize + boardoffset, y*piecesize + boardoffset))
+          piece.render(board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
 
   for x in range(0,8):
     for y in range(5,8):
       for piece in theme.darkSprites:
         if (x%2 ^ y%2):
-          piece.render(boardsurface,(x*piecesize + boardoffset, y*piecesize + boardoffset))
+          piece.render(board,(x*piecesize + boardoffset, y*piecesize + boardoffset))
   
-  scaled_board=pg.transform.scale(boardsurface, (DISPLAY_SIZE[1],)*2)
+  scaled_board=pg.transform.scale(board, (DISPLAY_SIZE[1],)*2)
   
   window.blit(scaled_board,(0,0))
   if (theme.thumbnail):
