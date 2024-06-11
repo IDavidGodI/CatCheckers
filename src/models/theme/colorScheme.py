@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from models.BaseDataClass import ParseableDataClass
+from models.baseDataClass import ParseableDataClass
 
 @dataclass
 class ColorScheme(ParseableDataClass):
   bgColor: str
-  fontColor: str
+  fgColor: str
 
 
