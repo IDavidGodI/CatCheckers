@@ -1,0 +1,12 @@
+{
+  "pieces":{
+    "dimensions": 120,
+    "flow": [
+      {
+        "name": "checkers",
+          "sprites": 1,
+          "static": [1]
+      }
+    ]
+  }
+}
