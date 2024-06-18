@@ -9,14 +9,16 @@ from models.genericDicts import GenericDict
 T = TypeVar(name="T",bound='ParseableDataClass')
 
 def _get_genericdict_values_type(testType):
-  
-  if (hasattr(testType, "__args__")):
-    print(testType.__args__, testType.__args__[-1])
-    return testType.__args__[-1]
+
   if issubclass(testType,(GenericDict)):
+    if (hasattr(testType, "__args__")):
+      print(testType, testType.__args__[-1])
+      return testType.__args__[-1]
     # if (DictValuesType in testType.__parameters__): return
     for cls in testType.__orig_bases__:
-      return _get_genericdict_values_type(cls)
+      subcls = _get_genericdict_values_type(cls)
+      if (subcls):
+        return subcls
 
 @dataclass
 class ParseableDataClass:

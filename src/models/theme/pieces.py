@@ -9,4 +9,4 @@ from models.theme.action import FramesData
 
 @dataclass
 class PiecesData(SpriteData):
-  actions: PiecesActions[FramesData]
+  actions: GenericPiecesActions[FramesData]

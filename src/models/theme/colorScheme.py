@@ -8,3 +8,5 @@ class ColorScheme(ParseableDataClass):
   fgColor: str
 
 
+__all__ = ["ColorScheme"]
+

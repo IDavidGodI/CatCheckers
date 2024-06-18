@@ -6,8 +6,8 @@ from models.genericDicts.genericDict import *
 PiecesActionKey = Literal["checkers", "idle", "checkidle", "death", "checkdeath"]
 
 
-class PiecesActions(GenericDict[PiecesActionKey, DictValuesType]): pass
+class GenericPiecesActions(GenericDict[PiecesActionKey, DictValuesType]): pass
 
-__all__ = ["PiecesActions", "PiecesActionKey"]
+__all__ = ["GenericPiecesActions", "PiecesActionKey"]
 
   
