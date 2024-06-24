@@ -48,4 +48,6 @@ class AnimatedSprite(GraphicalAsset):
       if self.loop:
         self.reset()
 
-    super().update(dt)
+    self.clear()
+
+    

@@ -1,9 +1,12 @@
-from typing import Protocol
+
+from abc import ABC, abstractmethod
 
 
-class AnimationStrategy(Protocol):
+class AnimationStrategy(ABC):
 
+  @abstractmethod
   def checkFinished(self) -> bool: ...
 
+  @abstractmethod
   def update(self, dt: float):
     ...

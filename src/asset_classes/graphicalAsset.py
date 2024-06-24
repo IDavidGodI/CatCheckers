@@ -11,11 +11,22 @@ class GraphicalAsset(ABC):
     self.image = image
     self.image_pos = Vector2(0)
 
+  @property
+  def image(self):
+    return self._image
+
+  @image.setter
+  def image(self, image: Surface):
+    self._image = Surface(image.get_size(), pg.SRCALPHA)
+    self._image.blit(image, (0,0))
+
   def update(self, dt: float):
     """A method that can change the state of the asset every frame"""
+
+  def clear(self):
     self.surface.fill((0,0,0,0))
     self.surface.blit(self.image, self.image_pos)
-
+  
   @abstractmethod
   def copy(self):
     """The method must be implemented allowing to generate a copy of the Graphical Asset"""
